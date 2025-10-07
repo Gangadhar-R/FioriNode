@@ -13,6 +13,7 @@ jobs:
     # Run only when PR is from Renovate or OSPO Renovate
     if: |
       github.actor == 'renovate[bot]' ||
+      github.actor == 'Gangadhar-R' ||
       github.actor == 'ospo-renovate[bot]'
     runs-on: ubuntu-latest
 
