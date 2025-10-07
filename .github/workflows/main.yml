@@ -1,0 +1,34 @@
+name: Handle Renovate PRs
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - main
+      - renovate/**  # optional: adjust based on your branch patterns
+  workflow_dispatch:  # allows manual triggering
+
+jobs:
+  handle-renovate-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log PR info
+        run: |
+          echo "GitHub Actor: ${{ github.actor }}"
+          echo "PR Number: ${{ github.event.pull_request.number }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+          echo "PR Author: ${{ github.event.pull_request.user.login }}"
+          echo "PR Branch: ${{ github.head_ref }}"
+      
+      - name: Check if actor is Renovate or OSPO Renovate
+        if: |
+          github.actor == 'renovate[bot]' || github.actor == 'renovate-ospo[bot]'
+        run: |
+          echo "This PR was created by Renovate or OSPO Renovate. Proceeding with workflow."
+      
+      - name: Run your job logic
+        if: |
+          github.actor == 'renovate[bot]' || github.actor == 'renovate-ospo[bot]' || github.event_name == 'workflow_dispatch'
+        run: |
+          echo "Running the main workflow logic..."
+          # Add your actual workflow commands here
