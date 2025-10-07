@@ -9,7 +9,7 @@ const path = require("path");
 const jwt = require('jsonwebtoken');
 const User = require("./model/user");
  /**
- * App Variables
+ * App Variables t
  */
 const app = express();
 const port = process.env.PORT || "3000";
